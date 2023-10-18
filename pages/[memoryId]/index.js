@@ -10,7 +10,7 @@ const Details = (props) => {
     <Fragment>
       <Head>
         <title>{props.memoryData.title}</title>
-        <meta name="description" content={props.memoryData.description}/>
+        <meta name="description" content={props.memoryData.description} />
       </Head>
       <MemoryDetails
         image={props.memoryData.image}
@@ -33,7 +33,7 @@ export async function getStaticPaths() {
   client.close();
 
   return {
-    fallback: false,
+    fallback: 'blocking',
     paths: memoriesId.map((memoryId) => ({
       params: { memoryId: memoryId._id.toString() },
     })),
@@ -53,7 +53,7 @@ export async function getStaticProps(context) {
   const selectedMemory = await memoriesCollection.findOne({
     _id: objectId,
   });
-  console.log(selectedMemory);
+
   client.close();
 
   return {
